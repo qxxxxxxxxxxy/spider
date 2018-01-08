@@ -25,19 +25,22 @@ class SpiderMain(object):
         self.urls.add_new_url(root_url)
         # 如果有待爬取的url
         while self.urls.has_new_url():
-            # 从中获取一个url
-            new_url = self.urls.get_new_url()
-            print('craw %d : %s' % (count, new_url))
-            # 把这个url下载下来
-            html_cont = self.downloader.download(new_url)
-            # 解析这个网页并且获取数据
-            new_urls , new_data = self.parser.parse(new_url, html_cont)
-            # 添加新的url
-            self.urls.add_new_urls(new_urls)
-            # 收集对应的数据
-            self.outputer.collect_data(new_data)
+            try:
+                # 从中获取一个url
+                new_url = self.urls.get_new_url()
+                print('craw %d : %s' % (count, new_url))
+                # 把这个url下载下来
+                html_cont = self.downloader.download(new_url)
+                # 解析这个网页并且获取数据
+                new_urls , new_data = self.parser.parse(new_url, html_cont)
+                # 添加新的url
+                self.urls.add_new_urls(new_urls)
+                # 收集对应的数据
+                self.outputer.collect_data(new_data)
+            except:
+                print("爬取失败,url不符合")
                 
-            if count == 10:
+            if count == 100:
                 break
             count = count + 1
         self.outputer.output_html()

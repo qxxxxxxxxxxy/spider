@@ -12,7 +12,6 @@ class HtmlDownloader(object):
         if url is None:
             return None
         respons = urllib.request.urlopen(url)
-       
         if respons.getcode() != 200:
             return None
         return respons.read()

@@ -23,12 +23,12 @@ class HtmlParser(object):
     
     def _get_new_data(self, page_url, soup):
         res_data = {}
-        #res_data['url'] = page_url
+        res_data['url'] = page_url
         title_node = soup.find('dd',class_="lemmaWgt-lemmaTitle-title").find('h1')
         res_data['title'] = title_node.get_text()
         print(title_node.get_text())
-        #summary_node = soup.find('div',class_="lemma-summary")
-        #res_data['summary'] = summary_node.get_text()
+        summary_node = soup.find('div',class_="lemma-summary")
+        res_data['summary'] = summary_node.get_text()
         return res_data
         
     def parse(self, page_url, html_cont):
